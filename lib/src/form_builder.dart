@@ -114,14 +114,16 @@ class FormBuilderState extends State<FormBuilder> {
   final _instantValue = <String, dynamic>{};
   final _savedValue = <String, dynamic>{};
 
+  /// windy@20221212 nullable return value
   Map<String, dynamic> get instantValue =>
       Map<String, dynamic>.unmodifiable(_instantValue.map((key, value) =>
-          MapEntry(key, _transformers[key]?.call(value) ?? value)));
+          MapEntry(key, _transformers[key] == null ? value : _transformers[key]!.call(value))));
 
   /// Returns the saved value only
+  /// windy@20221212 nullable return value
   Map<String, dynamic> get value =>
       Map<String, dynamic>.unmodifiable(_savedValue.map((key, value) =>
-          MapEntry(key, _transformers[key]?.call(value) ?? value)));
+          MapEntry(key, _transformers[key] == null ? value : _transformers[key]!.call(value))));
 
   /// Returns values after saving
   Map<String, dynamic> get initialValue => widget.initialValue;
